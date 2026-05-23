@@ -1,0 +1,17 @@
+{
+  "name": "Lovisa & Hugo Spelar",
+  "short_name": "L & H",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#E63946",
+  "theme_color": "#E63946",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
