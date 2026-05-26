@@ -725,20 +725,6 @@
 
 
     /* ── STREAK ── */
-    .streak-badge {
-      font-size: 12px;
-      font-weight: 900;
-      color: #FFB020;
-      letter-spacing: 0.3px;
-      display: flex; align-items:center; gap:2px;
-      animation: streakPop 0.35s cubic-bezier(0.34,1.56,0.64,1);
-    }
-    @keyframes streakPop {
-      0%   { transform: scale(0.5); opacity:0; }
-      100% { transform: scale(1);   opacity:1; }
-    }
-    .streak-fire { display:inline-block; animation: fireWiggle 0.6s ease-in-out infinite alternate; }
-    @keyframes fireWiggle { from { transform: rotate(-8deg) scale(1); } to { transform: rotate(8deg) scale(1.15); } }
 
 
 
@@ -1199,11 +1185,9 @@ function renderGames() {
         <div class="player-cell name-cell"><div class="player-col-name hugo">Huggi</div></div>
         <div class="player-cell score-cell left">
           <div class="score-num" onclick="editScore('${g.id}','lovisa',this)">${s.lovisa}</div>
-          ${(s.streak?.lovisa>=2)?`<div class="streak-badge"><span class="streak-fire">🔥</span>${s.streak.lovisa} raka!</div>`:''}
         </div>
         <div class="player-cell score-cell">
           <div class="score-num" onclick="editScore('${g.id}','hugo',this)">${s.hugo}</div>
-          ${(s.streak?.hugo>=2)?`<div class="streak-badge"><span class="streak-fire">🔥</span>${s.streak.hugo} raka!</div>`:''}
         </div>
         <div class="player-cell btn-cell left">
           <button class="win-btn lovisa" onclick="addWin('${g.id}','lovisa',this)">+</button>
@@ -1292,11 +1276,7 @@ function addWin(gameId, player, btn) {
   s[player]++;
   s.lastPlayed = Date.now();
   s.lastWinner = player;
-  if (!s.streak) s.streak = {lovisa:0, hugo:0};
-  s.streak[player]++;
-  const opp = player === 'lovisa' ? 'hugo' : 'lovisa';
-  s.streak[opp] = 0;
-  lastAction = { gameId, player, prevStreak: s.streak[player]-1 };
+  lastAction = { gameId, player };
   checkMilestone(gameId, player, s[player]);
   saveData(); render();
   btn?.classList.remove('pop'); void btn?.offsetWidth; btn?.classList.add('pop');
